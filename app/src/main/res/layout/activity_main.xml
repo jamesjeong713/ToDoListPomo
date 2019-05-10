@@ -6,13 +6,31 @@
     android:layout_height="match_parent"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
 
-    <ListView
-        android:id="@+id/list_view_main"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-    />
+        android:layout_height="match_parent">
+
+        <ListView
+            android:id="@+id/list_view_main"
+            android:layout_width="match_parent"
+            android:layout_height="640dp"
+            android:choiceMode="singleChoice"
+            android:divider="@color/design_default_color_primary" />
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="375dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_menu_add" />
+
+    </FrameLayout>
 
     <!--<RelativeLayout-->
         <!--android:orientation="vertical"-->
@@ -41,20 +59,6 @@
             <!--android:textSize="16dp" />-->
 
     <!--</RelativeLayout>-->
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_gravity="end|bottom"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:clickable="true"
-        app:srcCompat="@android:drawable/ic_menu_add" />
 
 
 </LinearLayout>
