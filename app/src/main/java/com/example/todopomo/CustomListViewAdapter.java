@@ -1,6 +1,7 @@
 package com.example.todopomo;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,11 +65,14 @@ public class CustomListViewAdapter extends BaseAdapter {
         listViewItems.add(item);
     }
 
-//    public void selectItem(boolean check) {
+//    public void selectItem(int position) {
+//
 //        ListViewItem item = new ListViewItem();
+//
+//        item.setCheckBox();
 //        item.setCheckBox(check);
 //
-//        listViewItems.set()
+//        listViewItems.set(position, item);
 //    }
 
 }

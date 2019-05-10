@@ -36,32 +36,23 @@ public class MainActivity extends AppCompatActivity {
                 // get TextView's text
 //                String strText = (String) parent.getItemAtPosition(position);
                 // TODO : use strText
+//                customAdapter.selectItem(position);
             }
         });
 
         customAdapter.addItem(true,"empty");
+
+        // check item
+        // https://dev-daddy.tistory.com/20 취소선
+        int checked;
+        checked = listview.getCheckedItemPosition();
+        if (checked > -1) {
+//            customAdapter.selectItem(checked);
+        }
+
+
         // modify item
-//        EditText textEdit = (EditText) findViewById(R.id.text_view);
-//
-//        textEdit.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                //Enter key Action
-//                if ((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)) {
-//                    int count, checked;
-//                    count = customAdapter.getCount();
-//
-//                    if (count > 0) {
-//                        checked = listview.getCheckedItemPosition();
-//                        if(checked > -1 && checked < count) {
-//                            customAdapter.setItem(checked, "test");
-//                        }
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+
 
         // fab button to add list
         FloatingActionButton fab = findViewById(R.id.fab);
