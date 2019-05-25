@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -37,12 +38,15 @@ public class CustomListViewAdapter extends BaseAdapter {
         }
 
         TextView textView = (TextView) convertView.findViewById(R.id.text_view);
+        TextView textViewSets = (TextView) convertView.findViewById(R.id.text_view_sets);
         CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.check_box);
+//        Button editButton = (Button) convertView.findViewById(R.id.start_button);
+
         // getting position from Data set
         ListViewItem listViewItem = listViewItems.get(position);
         // adjust data based on each items
         textView.setText(listViewItem.getDesc());
-        checkBox.setChecked(listViewItem.getCheckBox());
+        textViewSets.setText(listViewItem.getSets());
 
         return convertView;
     }
@@ -57,10 +61,11 @@ public class CustomListViewAdapter extends BaseAdapter {
         return listViewItems.get(position);
     }
 
-    public void addItem(boolean check, String text) {
+    public void addItem(String sets, String text) {
         ListViewItem item = new ListViewItem();
         item.setDesc(text);
-        item.setCheckBox(check);
+        item.setSets(sets);
+//        item.setCheckBox(check);
 
         listViewItems.add(item);
     }

@@ -1,18 +1,20 @@
 package com.example.todopomo;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import org.w3c.dom.Text;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
         listview = (ListView) findViewById(R.id.list_view_main);
         customAdapter = new CustomListViewAdapter();
-
         listview.setAdapter(customAdapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -40,34 +41,101 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        customAdapter.addItem(true,"empty");
+        // instead of edit button, I am going to edit task by using longClick
+        listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                editTaskDialog(position);
+                return false;
+            }
+        });
 
-        // check item
-        // https://dev-daddy.tistory.com/20 취소선
-        int checked;
-        checked = listview.getCheckedItemPosition();
-        if (checked > -1) {
-//            customAdapter.selectItem(checked);
-        }
-
-
-        // modify item
-
-
+        // For test
+        customAdapter.addItem("1", "empty");
         // fab button to add list
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int count = customAdapter.getCount();
-
-                customAdapter.addItem(false,"New Text test" + (count + 1));
-                // IMPORTANT: refresh state.
-                customAdapter.notifyDataSetChanged();
+                taskDialog();
 
                 Snackbar.make(view, "Add item", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    // add task with dialog
+    public void taskDialog() {
+        // Add button to load dialog
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.add_task);
+
+        Button saveButton = (Button) dialog.findViewById(R.id.add_task_yes);
+        Button noButton = (Button) dialog.findViewById(R.id.add_task_no);
+
+    //        final NumberPicker taskEditSets = (NumberPicker) findViewById(R.id.add_task_sets);
+        final EditText taskEditSets = (EditText) dialog.findViewById(R.id.add_task_sets);
+        final EditText taskEditName = (EditText) dialog.findViewById(R.id.add_task_edit);
+//        final TextView taskSets = (TextView) findViewById(R.id.add_task_sets);
+        saveButton.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (taskEditName.getText().toString() != null && taskEditName.getText().toString() != null ) {
+                    String taskSets = taskEditSets.getText().toString();
+                    String taskDec = taskEditName.getText().toString();
+
+                    customAdapter.addItem(taskSets, taskDec);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        noButton.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+    // edit task with dialog
+    public void editTaskDialog(int position) {
+// Add button to load dialog
+        ListViewItem item = new ListViewItem();
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.add_task);
+
+        Button saveButton = (Button) dialog.findViewById(R.id.add_task_yes);
+        Button noButton = (Button) dialog.findViewById(R.id.add_task_no);
+
+        final EditText taskEditSets = (EditText) dialog.findViewById(R.id.add_task_sets);
+//        taskEditSets.setText(item.)
+        final EditText taskEditName = (EditText) dialog.findViewById(R.id.add_task_edit);
+
+        saveButton.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (taskEditName.getText().toString() != null && taskEditName.getText().toString() != null ) {
+                    String taskSets = taskEditSets.getText().toString();
+                    String taskDec = taskEditName.getText().toString();
+
+                    customAdapter.addItem(taskSets, taskDec);
+                }
+                dialog.dismiss();
+            }
+        });
+
+        noButton.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 }
