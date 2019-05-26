@@ -20,6 +20,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView listview;
     private CustomListViewAdapter customAdapter;
+    private int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +46,13 @@ public class MainActivity extends AppCompatActivity {
         listview.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                editTaskDialog(position);
+                ListViewItem item = (ListViewItem) parent.getItemAtPosition(position);
+
+                String strDesc = item.getDesc();
+                String strSets = item.getSets();
+
+                editTaskDialog(strDesc, strSets, position);
+
                 return false;
             }
         });
@@ -78,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
     //        final NumberPicker taskEditSets = (NumberPicker) findViewById(R.id.add_task_sets);
         final EditText taskEditSets = (EditText) dialog.findViewById(R.id.add_task_sets);
         final EditText taskEditName = (EditText) dialog.findViewById(R.id.add_task_edit);
-//        final TextView taskSets = (TextView) findViewById(R.id.add_task_sets);
+
         saveButton.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -87,6 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     String taskDec = taskEditName.getText().toString();
 
                     customAdapter.addItem(taskSets, taskDec);
+                    customAdapter.notifyDataSetChanged();
                 }
                 dialog.dismiss();
             }
@@ -103,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // edit task with dialog
-    public void editTaskDialog(int position) {
+    public void editTaskDialog(String desc, String sets, final int position) {
 // Add button to load dialog
         ListViewItem item = new ListViewItem();
         final Dialog dialog = new Dialog(this);
@@ -113,8 +121,9 @@ public class MainActivity extends AppCompatActivity {
         Button noButton = (Button) dialog.findViewById(R.id.add_task_no);
 
         final EditText taskEditSets = (EditText) dialog.findViewById(R.id.add_task_sets);
-//        taskEditSets.setText(item.)
+        taskEditSets.setText(sets);
         final EditText taskEditName = (EditText) dialog.findViewById(R.id.add_task_edit);
+        taskEditName.setText(desc);
 
         saveButton.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -123,7 +132,8 @@ public class MainActivity extends AppCompatActivity {
                     String taskSets = taskEditSets.getText().toString();
                     String taskDec = taskEditName.getText().toString();
 
-                    customAdapter.addItem(taskSets, taskDec);
+                    customAdapter.editItem(taskSets, taskDec, position);
+                    customAdapter.notifyDataSetChanged();
                 }
                 dialog.dismiss();
             }

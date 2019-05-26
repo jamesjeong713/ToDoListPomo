@@ -61,23 +61,22 @@ public class CustomListViewAdapter extends BaseAdapter {
         return listViewItems.get(position);
     }
 
-    public void addItem(String sets, String text) {
+    public void addItem(String sets, String desc) {
         ListViewItem item = new ListViewItem();
-        item.setDesc(text);
+        item.setDesc(desc);
         item.setSets(sets);
-//        item.setCheckBox(check);
 
         listViewItems.add(item);
     }
 
-//    public void selectItem(int position) {
-//
-//        ListViewItem item = new ListViewItem();
-//
-//        item.setCheckBox();
-//        item.setCheckBox(check);
-//
-//        listViewItems.set(position, item);
-//    }
+    public void editItem(String sets, String desc, int position) {
+
+        ListViewItem item = new ListViewItem();
+
+        item.setDesc(desc);
+        item.setSets(sets);
+
+        listViewItems.set(position, item);
+    }
 
 }
