@@ -1,6 +1,8 @@
 package com.example.todopomo;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import org.w3c.dom.Text;
@@ -40,6 +43,7 @@ public class CustomListViewAdapter extends BaseAdapter {
         TextView textView = (TextView) convertView.findViewById(R.id.text_view);
         TextView textViewSets = (TextView) convertView.findViewById(R.id.text_view_sets);
         CheckBox checkBox = (CheckBox) convertView.findViewById(R.id.check_box);
+        Button buttonStart = (Button) convertView.findViewById(R.id.start_button);
 //        Button editButton = (Button) convertView.findViewById(R.id.start_button);
 
         // getting position from Data set
@@ -47,6 +51,18 @@ public class CustomListViewAdapter extends BaseAdapter {
         // adjust data based on each items
         textView.setText(listViewItem.getDesc());
         textViewSets.setText(listViewItem.getSets());
+
+        // Timer
+        final Timer timer = new Timer();
+        buttonStart.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timer.pomodoroTimer();
+            }
+        });
+
+        // after timer is over, listViewItem has to have current data of sets
+//        startButton.
 
         return convertView;
     }

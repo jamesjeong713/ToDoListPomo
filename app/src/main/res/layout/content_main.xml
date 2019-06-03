@@ -23,7 +23,7 @@
         android:padding="10dp"
         android:text="test"
         android:textSize="20dp"
-        android:textStyle="bold" />
+        android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/sets_name"
@@ -50,7 +50,6 @@
         android:layout_height="wrap_content"
         android:text="@string/start_button"
         android:textSize="10dp"
-
         />
 
 </com.example.todopomo.CheckableLinearLayout>

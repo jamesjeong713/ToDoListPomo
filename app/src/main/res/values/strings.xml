@@ -5,5 +5,8 @@
     <string name="delete_button">Delete</string>
     <string name="yes">YES</string>
     <string name="no">NO</string>
+    <string name="timer_start">START</string>
+    <string name="timer_stop">STOP</string>
+    <string name="timer_reset">RESET</string>
 </resources>
 <!-- Edit button removed instead of it, I am going to edit task by using longClick -->
