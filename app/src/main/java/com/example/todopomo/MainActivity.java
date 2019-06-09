@@ -15,10 +15,11 @@ import android.widget.Chronometer;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CustomListViewAdapter.ListBtnClickListener {
 
     private ListView listview;
     private CustomListViewAdapter customAdapter;
@@ -30,18 +31,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         listview = (ListView) findViewById(R.id.list_view_main);
-        customAdapter = new CustomListViewAdapter();
-        listview.setAdapter(customAdapter);
+//        customAdapter = new CustomListViewAdapter();
+//        listview.setAdapter(customAdapter);
 
+        customAdapter = new CustomListViewAdapter(this, R.layout.content_main, this) ;
+        listview.setAdapter(customAdapter);
+        // When user select an item on list...
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView parent, View v, int position, long id) {
-
-                // get TextView's text
-//                String strText = (String) parent.getItemAtPosition(position);
-                // TODO : use strText
-//                customAdapter.selectItem(position);
+//                pomodoroTimer();
+                // TODO : ...
+//                customAdapter.selectedItem(position);
+//                customAdapter.notifyDataSetChanged();
             }
+
         });
 
         // instead of edit button, I am going to edit task by using longClick
@@ -71,6 +75,35 @@ public class MainActivity extends AppCompatActivity {
 
                 Snackbar.make(view, "Add item", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+            }
+        });
+    }
+
+    // add timer with dialog
+    public void pomodoroTimer() {
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.timer);
+
+        final Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
+        Button buttonStart = (Button) findViewById(R.id.timer_button_start);
+        Button buttonStop = (Button) findViewById(R.id.timer_button_stop);
+        Button buttonReset = (Button) findViewById(R.id.timer_button_reset);
+
+        buttonStart.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                chronometer.start();
+            }
+        });
+
+        buttonStop.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                chronometer.stop();
+            }
+        });
+
+        buttonReset.setOnClickListener(new Button.OnClickListener() {
+            public void onClick(View v) {
+                chronometer.setBase(SystemClock.elapsedRealtime());
             }
         });
     }
@@ -114,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
 
     // edit task with dialog
     public void editTaskDialog(String desc, String sets, final int position) {
-// Add button to load dialog
+        // Add button to load dialog
         ListViewItem item = new ListViewItem();
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.add_task);
@@ -149,5 +182,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    @Override
+    public void onListBtnClick(int position) {
+//        pomodoroTimer();
+        Toast.makeText(this, Integer.toString(position+1) + " Item is selected..", Toast.LENGTH_SHORT).show() ;
     }
 }
