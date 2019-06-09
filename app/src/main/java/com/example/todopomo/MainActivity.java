@@ -84,10 +84,10 @@ public class MainActivity extends AppCompatActivity implements CustomListViewAda
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(R.layout.timer);
 
-        final Chronometer chronometer = (Chronometer) findViewById(R.id.chronometer);
-        Button buttonStart = (Button) findViewById(R.id.timer_button_start);
-        Button buttonStop = (Button) findViewById(R.id.timer_button_stop);
-        Button buttonReset = (Button) findViewById(R.id.timer_button_reset);
+        final Chronometer chronometer = (Chronometer) dialog.findViewById(R.id.chronometer);
+        Button buttonStart = (Button) dialog.findViewById(R.id.timer_button_start);
+        Button buttonStop = (Button) dialog.findViewById(R.id.timer_button_stop);
+        Button buttonReset = (Button) dialog.findViewById(R.id.timer_button_reset);
 
         buttonStart.setOnClickListener(new Button.OnClickListener() {
             public void onClick(View v) {
@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements CustomListViewAda
                 chronometer.setBase(SystemClock.elapsedRealtime());
             }
         });
+        dialog.show();
     }
 
     // add task with dialog
@@ -186,7 +187,7 @@ public class MainActivity extends AppCompatActivity implements CustomListViewAda
 
     @Override
     public void onListBtnClick(int position) {
-//        pomodoroTimer();
+        pomodoroTimer();
         Toast.makeText(this, Integer.toString(position+1) + " Item is selected..", Toast.LENGTH_SHORT).show() ;
     }
 }
